@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,maximum-scale=1.0,minimum-scale=1.0,initial-scale=1.0,user-scalable=no" />
+    <meta name="format-detection" content="telephone=no"> 
+    <title>省市县选择</title>
+    <link rel="stylesheet" href="../css/city.css">
+</head>
+<body>
+	<!-- 标题栏-->
+	<header class="header">
+		<span>添加收货地址</span>
+		<i class="icon-btn icon-left" onclick="javascript:history.go(-1);"></i>
+	</header>
+
+	<div class="wrap-page">
+		<div class="inpbox">
+			<label for="cityBtn">所在地区：</label>
+			<input class="hint" type="text" id="cityBtn" placeholder="请选择省份、城市、区县" readonly="readonly"  />
+		</div>
+		
+
+		<div id="cityModal" class="mask flexbox">
+			<div class="modal">
+				<div class="title">所在地区<span id="selectCity" class="sure">确定</span></div>
+				<ul id="tabBar"  class="tab clear">
+					<li class="fl on">省份</li>
+					<li class=" fl">城市</li>
+					<li class=" fl">区县</li>
+				</ul>
+				<div class="tab-content">
+					<div id="prov"></div>
+				    <div id="city"></div>
+				    <div id="area"></div>
+				</div>
+			</div>
+		</div>
+	</div>	
+
+	<script src="../js/public.js"></script>
+	<script src="../lib/jquery.min.js"></script>
+	<script src="../lib/cityJson.js"></script>
+	<script src="../js/city.js"></script>
+</body>
+</html>
