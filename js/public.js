@@ -10,19 +10,7 @@ var Utils = {
 		window.addEventListener('resize', handle, false);	
 		handle();
 	},
-	/* 原生调用 */
-	loadURL: function(url){
-	    var iFrame;
-	    iFrame = document.createElement("iframe");
-	    iFrame.setAttribute("src",url);
-	    iFrame.setAttribute("style","display:none;");
-	    iFrame.setAttribute("width","0px");
-	    iFrame.setAttribute("height","0px");
-	    iFrame.setAttribute("frameborder","0");
-	    document.body.appendChild(iFrame);
-	    iFrame.parentNode.removeChild(iFrame);
-	    iFrame = null;
-	},
+
 	/* 获取参数 */
 	getRequest: function() {
         var url = location.search;
