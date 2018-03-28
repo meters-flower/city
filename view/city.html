@@ -20,24 +20,24 @@
 			<label for="cityBtn">所在地区：</label>
 			<input class="hint" type="text" id="cityBtn" placeholder="请选择省份、城市、区县" readonly="readonly"  />
 		</div>
-		
+	</div>	
 
-		<div id="cityModal" class="mask flexbox">
-			<div class="modal">
-				<div class="title">所在地区<span id="selectCity" class="sure">确定</span></div>
-				<ul id="tabBar"  class="tab clear">
-					<li class="fl on">省份</li>
-					<li class=" fl">城市</li>
-					<li class=" fl">区县</li>
-				</ul>
-				<div class="tab-content">
-					<div id="prov"></div>
-				    <div id="city"></div>
-				    <div id="area"></div>
-				</div>
+	<!-- 区域选择模态框 -->
+	<div id="cityModal" class="mask flexbox">
+		<div class="modal">
+			<div class="title">所在地区<span class="icon-close"></span></div>
+			<ul id="tabBar"  class="tab clear">
+				<li class="fl">请选择</li>
+				<li class=" fl">请选择</li>
+				<li class=" fl">请选择</li>
+			</ul>
+			<div class="tab-content">
+				<div id="prov"></div>
+			    <div id="city"></div>
+			    <div id="area"></div>
 			</div>
 		</div>
-	</div>	
+	</div>
 
 	<script src="../js/public.js"></script>
 	<script src="../lib/jquery.min.js"></script>

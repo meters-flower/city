@@ -1,15 +1,12 @@
 ;(function() {
 	var pageCtrl = {
-		provObj: {}, 
+		provObj: {},
 		areaObj: {},
-
-		/* 选中的省市县 */
-		pos: { 
+		pos: {
 			prov: '',
 			city: '',
 			area: ''
 		},
-
 		/* 初始化省市县数据 */
 		_getData: function() {
 			var _self = this,
@@ -18,7 +15,11 @@
 			for (var i = 0; i < province.length; i++) {
 				temp = province[i];
 				_self.provObj[temp.id] = temp;
+				html += '<a href="#" data-id="'+ temp.id +'"><span>' + temp.name+ '</span></a>';
 			}
+			$('#prov').html(html).show();
+			$('#tabBar').find('li').eq(0).addClass('on').show()
+
 			for (var i = 0; i < area.length; i++) {
 				temp = area[i];
 				if(!_self.areaObj[temp.pid]) {
@@ -30,7 +31,6 @@
 			_self._tabHandle();
 			_self._setProvince();
 		},
-
 		/* 设置省份 */
 		_setProvince: function() {
 			var _self = this;
@@ -41,12 +41,11 @@
 				_self.pos = {
 					prov: $this.text()
 				};
-				$('#tabBar').find('li').eq(1).click();
-				$('#selectCity').removeClass('active');
+				$('#tabBar').find('li').eq(0).text($this.text())
+					.next().click().text('请选择').show().next().hide();
 				return false;
 			});
 		},
-
 		/* 设置城市 */
 		_setCity: function(id) {
 			var _self = this,
@@ -54,22 +53,21 @@
 			$city = $('#city');
 			arr = _self.provObj[id].city;
 			for (var i = 0; i < arr.length; i++) {
-				html += '<a href="#" data-id="'+ arr[i].id +'">' + arr[i].name+ '</a>';
+				html += '<a href="#" data-id="'+ arr[i].id +'"><span>' + arr[i].name+ '</span></a>';
 			}
-			$city.html(html).next().empty();
+			$city.html(html);
 
-			$city.on('click', 'a', function() {
+			$city.off('click', 'a').on('click', 'a', function() {
 				var $this = $(this);
 				$this.addClass('on').siblings().removeClass('on');
 				_self._setArea($this.data('id'));
 				_self.pos.city = $this.text();
 				_self.pos.area = '';
-				$('#tabBar').find('li').eq(2).click();
-				$('#selectCity').removeClass('active');
+				$('#tabBar').find('li').eq(1).text($this.text())
+					.next().click().text('请选择').show();
 				return false;
 			});
 		},
-		
 		/* 设置区域 */
 		_setArea: function(id) {
 			var _self = this,
@@ -77,14 +75,16 @@
 			$area = $('#area');
 			arr = _self.areaObj[id];
 			for (var i = 0; i < arr.length; i++) {
-				html += '<a href="#" data-id="'+ arr[i].id +'">' + arr[i].name+ '</a>';
+				html += '<a href="#" data-id="'+ arr[i].id +'"><span>' + arr[i].name+ '</span></a>';
 			}
 			$area.html(html);
-			$area.on('click', 'a', function() {
+			$area.off('click', 'a').on('click', 'a', function() {
 				var $this = $(this);
 				$this.addClass('on').siblings().removeClass('on');
 				_self.pos.area = $this.text();
-				$('#selectCity').addClass('active');
+				$('#tabBar').find('li').eq(2).text($this.text())
+				$('#cityBtn').val(_self.pos.prov + _self.pos.city + _self.pos.area);
+				_self._modalState($('#cityModal'));
 				return false;
 			});					
 		},
@@ -103,13 +103,6 @@
 			var _self = this,
 			$modal = $("#cityModal");
 			$("#cityBtn").click(function () {
-				var html = '';
-				for (var i = 0 in _self.provObj) {
-					html += '<a href="#" data-id="'+ i +'">' + _self.provObj[i].name+ '</a>';
-				}
-				$('#prov').html(html).siblings().empty();
-				$('#tabBar').find('li').eq(0).click();
-				$('#selectCity').removeClass('active');
 				_self._modalState($modal);
 			});
 			$modal.click(function() {
@@ -118,9 +111,7 @@
 			$modal.find('.modal').click(function() {
 				return false;
 			});
-			$('#selectCity').click(function() {
-				var pos = _self.pos;
-				$('#cityBtn').val(pos.prov + pos.city + pos.area);
+			$modal.find('.icon-close').click(function() {
 				_self._modalState($modal);
 			});
 		},	
